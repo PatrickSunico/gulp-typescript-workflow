@@ -25,25 +25,19 @@ gulp.task('browserSync', function()
 	});
 });
 
+
+gulp.task('ts-compile', function() {
+	return gulp.src('src/**/*.ts')
+				.pipe(tsc())
+				.pipe(gulp.dest('./build'))
+				.pipe(browserSync.reload({stream: true}));
+
+});
+
 gulp.task('watchFiles', function()
 {
 	gulp.watch('src/index.html', ['copyIndex']);
-	gulp.watch('src/**/*.js', ['babelIt']);
+	gulp.watch('src/**/*.ts', ['ts-compile']);
 });
 
-// gulp.task('babelIt', function()
-// {
-// 	return gulp.src('src/**/*.js')
-// 			.pipe(babel())
-// 			.pipe(gulp.dest('./build'))
-// 			.pipe(browserSync.reload({stream: true}));
-// });
-
-gulp.task('clean', function()
-{
-	return gulp.src('./build', {read: false})
-			.pipe(vinylPaths(del));
-});
-
-
-gulp.task('default', ['clean', 'copyIndex', 'browserSync', 'watchFiles']);
+gulp.task('default', ['copyIndex', 'browserSync', 'watchFiles','ts-compile']);

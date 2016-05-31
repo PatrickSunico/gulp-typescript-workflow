@@ -1,7 +1,7 @@
 class Person {
   firstName = "Cow";
   attack() {
-    console.log('Yo');
-    this.firstName = "Jesse"; //This refers to the function
+    console.log('War Cry');
+    this.firstName = "Patrick"; //This refers to the function
   }
 }
